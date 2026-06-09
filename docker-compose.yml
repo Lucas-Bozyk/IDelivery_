@@ -1,0 +1,67 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./IDelivery/IDelivery/scripts/init-postgres.sql:/docker-entrypoint-initdb.d/init-postgres.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./IDelivery
+      dockerfile: IDelivery/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS}
+      Jwt__Issuer: ${Jwt__Issuer}
+      Jwt__Audience: ${Jwt__Audience}
+      Jwt__Key: ${Jwt__Key}
+      Cors__AllowedOrigins: ${Cors__AllowedOrigins}
+      Payments__WebhookSecret: ${Payments__WebhookSecret}
+      ConnectionStrings__IdentityDb: Host=postgres;Port=5432;Database=${IDENTITY_DB_NAME};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      ConnectionStrings__DeliveryDb: Host=postgres;Port=5432;Database=${DELIVERY_DB_NAME};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      CUSTOMER_EMAIL: ${CUSTOMER_EMAIL}
+      CUSTOMER_PASSWORD: ${CUSTOMER_PASSWORD}
+      DELIVERY_DRIVER_EMAIL: ${DELIVERY_DRIVER_EMAIL}
+      DELIVERY_DRIVER_PASSWORD: ${DELIVERY_DRIVER_PASSWORD}
+
+  uploads:
+    build:
+      context: ./uploads
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./uploads:/usr/share/nginx/html/uploads:ro
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_started
+      uploads:
+        condition: service_started
+
+volumes:
+  postgres_data:
+
+

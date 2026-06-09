@@ -1,0 +1,55 @@
+﻿# Environment and secrets
+.env
+.env.*
+!.env.example
+IDelivery/IDelivery/.env
+IDelivery/IDelivery/.env.*
+!IDelivery/IDelivery/.env.example
+
+# .NET build output
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/*.rsuser
+
+# Local databases
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Node/Vite
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/*.local
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/lerna-debug.log*
+
+# Docker/local runtime
+**/.dockerignore.local
+
+# IDE and editors
+.vs/
+**/.vs/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+**/*.ntvs*
+**/*.njsproj
+**/*.sw?
+
+# Logs
+logs/
+**/logs/
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary/local notes
+Novo(a) Documento de Texto.txt
