@@ -402,34 +402,6 @@ npm run preview
 
 ---
 
-## Segurança
-
-Recomendações mínimas antes de produção:
-
-- Trocar todas as senhas padrão.
-- Usar `Jwt__Key` forte, com no mínimo 32 caracteres.
-- Não versionar `.env`.
-- Usar HTTPS.
-- Configurar CORS apenas para domínios confiáveis.
-- Usar migrations oficiais do Entity Framework.
-- Usar cofre de secrets, como Vault, AWS Secrets Manager, Azure Key Vault ou equivalente.
-- Implementar logs e observabilidade.
-- Validar ownership dos recursos, impedindo que um usuário acesse dados de outro.
-
----
-
-## Melhorias futuras
-
-- Implementar migrations versionadas.
-- Adicionar FluentValidation.
-- Melhorar políticas de autorização por recurso.
-- Adicionar pipeline CI/CD.
-- Melhorar tratamento global de erros.
-- Adicionar paginação e filtros avançados.
-- Criar dashboard administrativo.
-- Implementar testes E2E no frontend.
-- Melhorar documentação da API.
-- Configurar ambiente de produção com HTTPS e proxy reverso.
 
 ---
 
