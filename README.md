@@ -23,8 +23,6 @@ IDelivery é uma aplicação full stack para delivery de alimentos, composta por
 - [Testes](#testes)
 - [Regras de negócio](#regras-de-negócio)
 - [Rotas principais da API](#rotas-principais-da-api)
-- [Segurança](#segurança)
-- [Melhorias futuras](#melhorias-futuras)
 - [Autor](#autor)
 
 ---
