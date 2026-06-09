@@ -405,6 +405,6 @@ npm run preview
 
 ## Autor
 
-Projeto desenvolvido por **Lucas Bozyk**.
+Projeto desenvolvido por **Lucas Bozyk**, **Vinicius Minetto**.
 
 Repositório: `Lucas-Bozyk/IDelivery_`
